@@ -1,0 +1,29 @@
+#+TITLE: Segmenter
+
+This module separates background and foreground, using labeled key points.
+
+* Prepare source code
+
+  #+BEGIN_SRC sh
+    git clone https://github.com/cy20lin/2018_fall_image_processing_final_api_segmenter ~/segmenter
+    cd ~/segmenter
+    git submodule update --init --recursive
+  #+END_SRC
+
+* Build this module
+  
+  #+BEGIN_SRC sh
+    cd ~/segmenter
+    mkdir build
+    cd build
+    cmake ..
+    make
+  #+END_SRC
+
+* Test this project
+
+  #+BEGIN_SRC sh
+    cd ~/segmenter
+    cd build
+    ./test_api_segmenter_segmenter_cimg
+  #+END_SRC

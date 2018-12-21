@@ -1,0 +1,8 @@
+[submodule "submodule/sweet"]
+		path = submodule/sweet
+		url = https://github.com/cy20lin/sweet
+
+[submodule "submodule/CImg"]
+    path = submodule/CImg
+    url = https://github.com/dtschump/CImg
+
