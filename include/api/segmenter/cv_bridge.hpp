@@ -7,7 +7,7 @@
 namespace api {
 namespace segmenter {
 
-std_image_type cv_mat_to_std_image(cv::Mat in) {
+inline std_image_type cv_mat_to_std_image(cv::Mat in) {
     cv::Mat in_;
     std_image_type out;
     auto & size = std::get<0>(out);
@@ -43,7 +43,7 @@ std_image_type cv_mat_to_std_image(cv::Mat in) {
     return out;
 }
 
-cv::Mat std_image_to_cv_mat(std_image_type in) {
+inline cv::Mat std_image_to_cv_mat(std_image_type in) {
     cv::Mat out;
     auto & size = std::get<0>(in);
     auto & data = std::get<1>(in);

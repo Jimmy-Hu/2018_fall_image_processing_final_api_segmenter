@@ -11,7 +11,7 @@
 namespace api {
 namespace segmenter {
 
-std_image_type cimg_to_std_image(const cimg_library::CImg<std::uint8_t> & in) {
+inline std_image_type cimg_to_std_image(const cimg_library::CImg<std::uint8_t> & in) {
     cimg_library::CImg<std::uint8_t> in_;
     std_image_type out;
     auto & size = std::get<0>(out);
@@ -36,7 +36,7 @@ std_image_type cimg_to_std_image(const cimg_library::CImg<std::uint8_t> & in) {
     return out;
 }
 
-cimg_library::CImg<std::uint8_t> std_image_to_cimg(const std_image_type & in) {
+inline cimg_library::CImg<std::uint8_t> std_image_to_cimg(const std_image_type & in) {
     cimg_library::CImg<std::uint8_t> out;
     auto & size = std::get<0>(in);
     auto & data = std::get<1>(in);
