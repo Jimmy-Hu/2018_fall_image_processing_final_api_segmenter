@@ -60,3 +60,6 @@ sweet_target_add(test_api_segmenter_segmenter_cimg CONFIGS OpenCV CImg Threads)
 
 add_executable(test_api_segmenter_segmenter_std test/test_api_segmenter_segmenter_std.cpp)
 sweet_target_add(test_api_segmenter_segmenter_std CONFIGS OpenCV)
+
+add_executable(segment src/segment.cpp)
+sweet_target_add(segment CONFIGS OpenCV CImg Threads)

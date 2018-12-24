@@ -5,6 +5,7 @@
 #include "core.hpp"
 #include <cstdint>
 #include <iostream>
+#define cimg_display 0
 #include "../../../submodule/CImg/CImg.h"
 
 namespace api {
@@ -29,7 +30,7 @@ std_image_type cimg_to_std_image(const cimg_library::CImg<std::uint8_t> & in) {
             data[xn*y+x][0] = 0 < zn ? in(x,y,0) : 0;
             data[xn*y+x][1] = 1 < zn ? in(x,y,1) : in(x,y,zn-1);
             data[xn*y+x][2] = 2 < zn ? in(x,y,2) : in(x,y,zn-1);
-            // data[xn*y+x][3] = 3 < zn ? in(x,y,3) : in(x,y,zn-1);
+            data[xn*y+x][3] = 3 < zn ? in(x,y,3) : in(x,y,zn-1);
         }
     }
     return out;
@@ -54,6 +55,7 @@ cimg_library::CImg<std::uint8_t> std_image_to_cimg(const std_image_type & in) {
             out(x,y,0) = data[xn*y+x][0];
             out(x,y,1) = data[xn*y+x][1];
             out(x,y,2) = data[xn*y+x][2];
+            // out(x,y,3) = data[xn*y+x][3];
         }
     }
     return out;

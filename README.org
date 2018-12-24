@@ -91,4 +91,3 @@ This module separates background and foreground, using labeled key points.
    
    [[./doc/kmask.png]]
    
-   [[./doc/mask_.png]]
