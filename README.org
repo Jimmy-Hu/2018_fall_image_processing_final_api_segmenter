@@ -27,12 +27,32 @@ This module separates background and foreground, using labeled key points.
     cd build
     ./test_api_segmenter_segmenter_cimg
   #+END_SRC
-
+  
+* Ideas
+  
+  Given a image and with labeled keypoints (label as foreground and background).
+  We want to calculate the label for each pixel in the image.
+  
+  Given that we already know the label of some point (pixel), we are going to utilize
+  those point to generate the label information for other not-yet-labeled pixel.
+  
+  It take three steps to generate labels for all pixels: Blur, Calculate Priority Map, and watershed.
+  
+  First, blur the image for a smoother image. Avoiding high frequency noises.
+  
+  Second, calculate the priority for each pixel in this image. Use the reciprocal of gradient as the priority value.
+  The pixel with high priority is in the place where the variation of intensity is low. 
+  The pixel with low priority on the other hand is in the place where the variation of intensity are high. 
+  
+  Third, using watershed to calculate the labels. By propagating from the neighbors of know labels,
+  those pixel with high priority has higher chance to be labeled first. Stop, propagating as whole 
+  pixels in image has already been labeled.
+  
 * The algorithm under the hood
   
 ** Step1. Blur the image
-
-   Use Guassian filtering, with sigma = max(image.width, image.height)*0.002;
+   
+   Use Guassian filtering, with sigma = max(image.width, image.height) * 0.002;
    
    [[./doc/blurred.png]]
 
