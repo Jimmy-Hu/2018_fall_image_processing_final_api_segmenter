@@ -111,3 +111,12 @@ This module separates background and foreground, using labeled key points.
    
    [[./doc/kmask.png]]
    
+
+* References
+  
+ - [[https://www.sciencedirect.com/science/article/pii/S0167819117301242?fbclid=IwAR0yxl3xelK09OzI2uJrxqSundHrIJ4PGHqd6_SUx9Rk_1nAsaUVIYVocrk][Concurrent computation of topological watershed on shared memory parallel machines]]
+ - [[http://cmm.ensmp.fr/~beucher/publi/SB_watershed.pdf][The Morphological Approach to Segmentation - The Watershed Transformation (S. Beucher and F. Meyer)]]
+ - [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.375.1648&rep=rep1&type=pdf][Topographic distance and watershed lines]]
+ - [[http://www.gipsa-lab.grenoble-inp.fr/~jocelyn.chanussot/publis/ieee_nsip_99_chanuss_watershed.pdf][Watershed Approaches For Color Image Segmentation]]
+ - [[https://en.wikipedia.org/wiki/Watershed_(image_processing)][Watershed wiki page]]
+ - [[http://opensource.graphics/tag/foreground-extraction/?fbclid=IwAR24lEAFBD_NoEhSOr7Dkm9Eat0X3Pg-Qe_2LX-AxzCMkYJ-M55vr2tYVpk][How to code a nice user-guided foreground extraction algorithm? (Addendum)]]
