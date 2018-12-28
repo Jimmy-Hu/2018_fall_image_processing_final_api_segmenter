@@ -1,0 +1,2 @@
+count,true_positive,true_negative,false_positive,false_negative,precision,recall,f_measure,mean_absolute_error,milliseconds
+1215000,192096,996918,8104,17882,0.959520,0.914839,0.936647,0.021388,1605

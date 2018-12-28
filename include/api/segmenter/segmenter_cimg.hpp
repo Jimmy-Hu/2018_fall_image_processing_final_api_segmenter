@@ -25,7 +25,7 @@ public:
         const CImg<std::uint8_t> image(std_image_to_cimg(source));
         // const CImg<std::uint8_t> image(std_image_to_cv_mat(source));
         // const CImg<std::uint8_t> image(cv::imread("../dataset/4.jpeg"));
-        cv::imshow("image", image.get_MAT());
+        // cv::imshow("image", image.get_MAT());
 
         // cv::Mat label_mask = cv::imread("../dataset/kp4.png");
         // cv::Mat label(cv::Size(label_mask.col, label_mask.row));
@@ -42,7 +42,8 @@ public:
                 x = pt.first;
                 y = pt.second;
                 if (x < 0 || x >= xn || y < 0 || y >= yn) {
-                    throw std::invalid_argument("keypoint out of range");
+                    throw std::invalid_argument(std::string("keypoint (") + std::to_string(x) + "," + std::to_string(y) + ") out of range size=(" + std::to_string(xn) + ","
+                                                + std::to_string(yn) + ")");
                 }
                 labels(x,y,0) = label;
                 // labels(x,y,1) = label;
@@ -77,13 +78,13 @@ public:
             labels(x,y) = (label != 2) ? 255 : 0;
         }
 
-        CImg<std::uint8_t> P2(P);
-        cimg_forXY(P,x,y){
-            P2(x,y) = P(x,y)*255;
-        }
-        cv::imshow("p", P2.get_MAT());
-        cv::imshow("gx",  gradient.at(0).get_MAT());
-        cv::imshow("gy",  gradient.at(1).get_MAT());
+        // CImg<std::uint8_t> P2(P);
+        // cimg_forXY(P,x,y){
+        //     P2(x,y) = P(x,y)*255;
+        // }
+        // cv::imshow("p", P2.get_MAT());
+        // cv::imshow("gx",  gradient.at(0).get_MAT());
+        // cv::imshow("gy",  gradient.at(1).get_MAT());
 
         return cimg_to_std_image(labels);
     }

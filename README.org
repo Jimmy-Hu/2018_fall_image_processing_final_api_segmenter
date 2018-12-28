@@ -11,7 +11,7 @@ This module separates background and foreground, using labeled key points.
   #+END_SRC
 
 * Build this module
-  
+
   #+BEGIN_SRC sh
     cd ~/segmenter
     mkdir build
@@ -27,3 +27,96 @@ This module separates background and foreground, using labeled key points.
     cd build
     ./test_api_segmenter_segmenter_cimg
   #+END_SRC
+  
+* Ideas
+  
+  Given a image and with labeled keypoints (label as foreground and background).
+  We want to calculate the label for each pixel in the image.
+  
+  Given that we already know the label of some point (pixel), we are going to utilize
+  those point to generate the label information for other not-yet-labeled pixel.
+  
+  It take three steps to generate labels for all pixels: Blur, Calculate Priority Map, and watershed.
+  
+  First, blur the image for a smoother image. Avoiding high frequency noises.
+  
+  Second, calculate the priority for each pixel in this image. Use the reciprocal of gradient as the priority value.
+  The pixel with high priority is in the place where the variation of intensity is low. 
+  The pixel with low priority on the other hand is in the place where the variation of intensity are high. 
+  
+  Third, using watershed to calculate the labels. By propagating from the neighbors of know labels,
+  those pixel with high priority has higher chance to be labeled first. Stop, propagating as whole 
+  pixels in image has already been labeled.
+  
+* The algorithm under the hood
+  
+** Step1. Blur the image
+   
+   Use Guassian filtering, with sigma = max(image.width, image.height) * 0.002;
+   
+   [[./doc/blurred.png]]
+
+** Step2. Build the Priority Image
+
+
+   Get the gradient vector (x y directions) for each channel (r, g, b),
+
+   Get the length (norm) of each gradient vector for each channel.
+
+   Sum length for gradient vector in each channel.
+
+   Add 1 to the sum and divide 1 using this sum.
+
+   Now we got a priority at this point whose value is in the range (0,1].
+
+   For smooth areas the priority value is high, otherwise the priority is low.
+   
+   
+   Gradient in x direction.
+   
+   [[./doc/gx.png]]
+   
+   Gradient in y direction.
+   
+   [[./doc/gy.png]]
+
+   Priority Image, with black = 0, white = 1
+   
+   [[./doc/p.png]]
+   
+** Step3. Watershed
+   
+   Given the labeled keypoints (i.e. foreground or background) and priority image.
+
+   Initialization:
+   
+   For each neighbor (we use 8-neighbor in this project) of the keypoints.
+
+   Push each neighbor point into priority queque given their priority.
+
+   Propagation:
+   
+   Pop the point with the highest priority.
+
+   Point with higher priority would be processed first.
+
+   Push all non-labeled neighbors around this point into priority queue.
+
+   Set the label of this point to the label of the labeled neighbor.
+
+   Stop when priority queue is empty.
+   
+   Following figure is the result mask, with background in color red,
+   foreground in color green.
+   
+   [[./doc/kmask.png]]
+   
+
+* References
+  
+ - [[https://www.sciencedirect.com/science/article/pii/S0167819117301242?fbclid=IwAR0yxl3xelK09OzI2uJrxqSundHrIJ4PGHqd6_SUx9Rk_1nAsaUVIYVocrk][Concurrent computation of topological watershed on shared memory parallel machines]]
+ - [[http://cmm.ensmp.fr/~beucher/publi/SB_watershed.pdf][The Morphological Approach to Segmentation - The Watershed Transformation (S. Beucher and F. Meyer)]]
+ - [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.375.1648&rep=rep1&type=pdf][Topographic distance and watershed lines]]
+ - [[http://www.gipsa-lab.grenoble-inp.fr/~jocelyn.chanussot/publis/ieee_nsip_99_chanuss_watershed.pdf][Watershed Approaches For Color Image Segmentation]]
+ - [[https://en.wikipedia.org/wiki/Watershed_(image_processing)][Watershed wiki page]]
+ - [[http://opensource.graphics/tag/foreground-extraction/?fbclid=IwAR24lEAFBD_NoEhSOr7Dkm9Eat0X3Pg-Qe_2LX-AxzCMkYJ-M55vr2tYVpk][How to code a nice user-guided foreground extraction algorithm? (Addendum)]]
