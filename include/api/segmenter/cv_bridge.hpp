@@ -2,12 +2,11 @@
 #define FINAL_MODULE_SEGMENTER_INCLUDE_API_SEGMENTER_CV_BRIDGE_HPP_INCLUDED
 
 #include "core.hpp"
-#include <opencv/cv.h>
-
+#include "opencv2/core/mat.hpp"
 namespace api {
 namespace segmenter {
 
-inline std_image_type cv_mat_to_std_image(cv::Mat in) {
+std_image_type cv_mat_to_std_image(cv::Mat in) {
     cv::Mat in_;
     std_image_type out;
     auto & size = std::get<0>(out);
@@ -43,7 +42,7 @@ inline std_image_type cv_mat_to_std_image(cv::Mat in) {
     return out;
 }
 
-inline cv::Mat std_image_to_cv_mat(std_image_type in) {
+cv::Mat std_image_to_cv_mat(std_image_type in) {
     cv::Mat out;
     auto & size = std::get<0>(in);
     auto & data = std::get<1>(in);
