@@ -1,7 +1,7 @@
 #include <api/segmenter/cv_cimg_bridge.hpp>
 #include <api/segmenter/segmenter_cimg.hpp>
 #include <api/segmenter/cv_bridge.hpp>
-#include <opencv/cv.h>
+#include <opencv2/opencv.hpp>
 
 using namespace cimg_library;
 
